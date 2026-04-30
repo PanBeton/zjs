@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JZS Nieruchomości | Skup Zadłużonych Nieruchomości</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F2FBF6',
+                            100: '#DDF7E8',
+                            200: '#B9EED1',
+                            500: '#12B981', 
+                            600: '#0E9F6E',
+                            900: '#073B32',
+                        },
+                        accent: {
+                            400: '#FBBF24',
+                            500: '#F97316',
+                            600: '#EA580C',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --brand: #12B981; }
+        body { background: linear-gradient(180deg, #F2FBF6 0%, #FFFFFF 44%, #FFF7ED 100%); cursor: default; overflow-x: hidden; }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #F2FBF6; }
+        ::-webkit-scrollbar-thumb { background: #12B981; border: 3px solid #F2FBF6; border-radius: 10px; }
+
+        .glass { background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(25px); border: 1px solid rgba(18,185,129,0.16); }
+        
+        /* Interactive Background Glow */
+        #cursor-glow {
+            position: fixed; top: 0; left: 0; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(18, 185, 129, 0.12) 0%, rgba(251, 191, 36, 0.07) 34%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 0; transform: translate(-50%, -50%); transition: opacity 0.3s;
+        }
+
+        .bento-card { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .bento-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 32px 70px -18px rgba(7, 59, 50, 0.22); }
+
+        .form-input { transition: all 0.3s ease; border: 1px solid #B9EED1; background: #F2FBF6; }
+        .form-input:focus { border-color: #12B981; background: white; box-shadow: 0 0 0 4px rgba(18, 185, 129, 0.14); }
+
+        .accordion-content { transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1); max-height: 0; overflow: hidden; }
+        .accordion-active .accordion-content { max-height: 400px; margin-top: 1.5rem; }
+        .accordion-active .chevron { transform: rotate(180deg); color: #12B981; }
+        
+        .premium-btn { position: relative; overflow: hidden; transition: all 0.4s ease; display: inline-flex; align-items: center; justify-content: center; }
+        .premium-btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 300%; height: 300%; background: rgba(255,255,255,0.1); transform: translate(-50%, -50%) rotate(45deg) scale(0); transition: 0.7s; }
+        .premium-btn:hover::after { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+
+        .mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-12px) scale(0.98);
+            pointer-events: none;
+            visibility: hidden;
+            transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .mobile-menu.open {
+            max-height: 360px;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .menu-line { transition: transform 0.25s ease, opacity 0.25s ease; }
+        .menu-open .menu-line:first-child { transform: translateY(6px) rotate(45deg); }
+        .menu-open .menu-line:nth-child(2) { opacity: 0; }
+        .menu-open .menu-line:last-child { transform: translateY(-6px) rotate(-45deg); }
+
+        @keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-anim { animation: floating 4s ease-in-out infinite; }
+    </style>
+</head>
+<body class="font-sans antialiased text-brand-900">
+    <div id="cursor-glow"></div>
+
+    <div class="hidden lg:flex bg-brand-50 border-b border-brand-100 py-2 relative z-[110]">
+        <div class="max-w-[1400px] mx-auto px-12 w-full flex justify-between items-center">
+            <div class="flex gap-8">
+                <span class="text-[9px] font-bold tracking-[0.2em] text-gray-400 flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-brand-500"></i> WARSZAWA • KRAKÓW • GDAŃSK • WROCŁAW
+                </span>
+                <span class="text-[9px] font-bold tracking-[0.2em] text-gray-400 flex items-center gap-2">
+                    <i data-lucide="clock" class="w-3 h-3 text-brand-500"></i> CZAS ANALIZY: DO 15 MINUT
+                </span>
+            </div>
+            <div class="flex gap-6">
+                <a href="mailto:biuro@jzsnieruchomosci.pl" class="text-[9px] font-bold tracking-[0.2em] text-brand-900 hover:text-brand-500 transition">BIURO@JZSNIERUCHOMOSCI.PL</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="fixed top-4 lg:top-12 w-full z-[100] px-4 sm:px-6 lg:px-12 transition-all duration-500" id="navbar">
+        <div class="max-w-[1400px] mx-auto glass rounded-[20px] lg:rounded-[24px] px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex justify-between items-center shadow-2xl shadow-brand-900/10">
+            <div class="flex items-center gap-4 group cursor-pointer">
+                <div class="w-10 h-10 lg:w-11 lg:h-11 bg-brand-900 rounded-xl flex items-center justify-center text-accent-400 font-black text-lg lg:text-xl transition-transform group-hover:scale-105">JZS</div>
+                <div class="flex flex-col">
+                    <span class="font-black text-base sm:text-xl tracking-tighter leading-none">JZS <span class="text-brand-500 font-normal serif italic">Nieruchomości</span></span>
+                    <span class="text-[7px] sm:text-[8px] tracking-[0.25em] sm:tracking-[0.4em] font-bold text-gray-400 uppercase">Private Capital Fund</span>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex items-center gap-10">
+                <a href="#bento" class="text-[11px] font-extrabold tracking-[0.2em] hover:text-brand-500 transition">STRATEGIA</a>
+                <a href="#faq" class="text-[11px] font-extrabold tracking-[0.2em] hover:text-brand-500 transition">FAQ</a>
+                <div class="h-6 w-px bg-brand-200"></div>
+                <a href="tel:+48123456789" class="text-sm font-black flex items-center gap-3 bg-brand-50 px-5 py-2.5 rounded-full border border-brand-100 hover:bg-white transition-all">
+                    <i data-lucide="phone" class="w-4 h-4 text-brand-500"></i>
+                    123 456 789
+                </a>
+                <a href="#kontakt" class="premium-btn bg-brand-900 text-white px-10 py-3.5 rounded-full text-[11px] font-black tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-900/20">KONTAKT PRIORYTETOWY</a>
+            </div>
+
+            <button type="button" id="mobileMenuButton" class="lg:hidden ml-auto w-11 h-11 rounded-full bg-brand-900 text-white flex flex-col items-center justify-center gap-1.5 shadow-xl shadow-brand-900/15" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span class="menu-line block w-5 h-0.5 rounded-full bg-white"></span>
+                <span class="menu-line block w-5 h-0.5 rounded-full bg-white"></span>
+                <span class="menu-line block w-5 h-0.5 rounded-full bg-white"></span>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="mobile-menu lg:hidden max-w-[1400px] mx-auto mt-3 overflow-hidden rounded-[24px] bg-white shadow-2xl shadow-brand-900/15 ring-1 ring-brand-100">
+            <div class="grid gap-2 p-3">
+                <a href="#bento" class="mobile-menu-link flex items-center justify-between rounded-2xl px-5 py-4 text-sm font-black tracking-[0.12em] text-brand-900 uppercase hover:bg-brand-50">
+                    Strategia
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i>
+                </a>
+                <a href="#faq" class="mobile-menu-link flex items-center justify-between rounded-2xl px-5 py-4 text-sm font-black tracking-[0.12em] text-brand-900 uppercase hover:bg-brand-50">
+                    FAQ
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-500"></i>
+                </a>
+                <a href="#kontakt" class="mobile-menu-link premium-btn rounded-2xl bg-accent-500 px-5 py-4 text-sm font-black tracking-[0.12em] text-white uppercase shadow-xl shadow-accent-500/25">
+                    Kontakt priorytetowy
+                </a>
+                <a href="tel:+48123456789" class="mobile-menu-link flex items-center justify-center gap-3 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-base font-black text-brand-900 hover:bg-brand-100">
+                    <i data-lucide="phone" class="w-5 h-5 text-brand-500"></i>
+                    123 456 789
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex flex-col justify-center pt-28 pb-14 sm:pt-32 sm:pb-20 overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center relative z-10">
+            <div class="reveal-left">
+                <div class="flex items-center gap-4 mb-6 lg:mb-10">
+                    <span class="h-[2px] w-8 bg-brand-500"></span>
+                    <span class="text-[10px] sm:text-xs font-black tracking-[0.22em] sm:tracking-[0.3em] text-brand-500 uppercase">Eksperci od spraw trudnych</span>
+                </div>
+                <h1 class="text-5xl sm:text-6xl lg:text-[105px] font-extrabold leading-[0.92] lg:leading-[0.85] tracking-tighter text-brand-900 mb-7 lg:mb-10">
+                    Trudne sprawy, <br/><span class="serif italic font-normal text-brand-500">proste</span> wyjście.
+                </h1>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-500 max-w-lg mb-8 lg:mb-12 leading-relaxed font-light">
+                    Specjalistyczny fundusz skupujący nieruchomości z problemami prawnymi. Gwarantujemy bezpieczeństwo transakcji pod opieką najlepszych notariuszy w Polsce.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button onclick="document.getElementById('kontakt').scrollIntoView();" class="premium-btn bg-accent-500 text-white px-7 sm:px-12 py-5 sm:py-6 rounded-[20px] font-black text-base sm:text-lg hover:translate-y-[-4px] hover:bg-accent-600 transition-all shadow-2xl shadow-accent-500/30">
+                        Poproś o ofertę kupna
+                    </button>
+                </div>
+
+                <div class="mt-12 lg:mt-20 grid grid-cols-3 gap-4 sm:gap-8 lg:gap-12 border-t border-brand-100 pt-8 lg:pt-10">
+                    <div>
+                        <p class="text-xl sm:text-2xl font-black italic">15 lat</p>
+                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Doświadczenia</p>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-black italic">500+</p>
+                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Transakcji</p>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-black italic">48h</p>
+                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Decyzja finansowa</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative reveal-right">
+                <div class="relative rounded-[32px] sm:rounded-[56px] lg:rounded-[80px] overflow-hidden aspect-[4/5] shadow-[0_45px_100px_-28px_rgba(7,59,50,0.32)] group">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Ekskluzywne wnętrze biura" class="w-full h-full object-cover transition-transform duration-[4s] group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-brand-500/10 to-transparent"></div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-5 left-5 right-5 sm:bottom-12 sm:left-12 sm:right-auto glass p-5 sm:p-8 rounded-[28px] sm:rounded-[40px] float-anim border-brand-500/20">
+                        <div class="flex items-center gap-4 sm:gap-5">
+                            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-900 rounded-2xl flex items-center justify-center text-accent-400">
+                                <i data-lucide="award" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                            </div>
+                            <div>
+                                <p class="text-xl font-black leading-none">Kapitał Własny</p>
+                                <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">Bez czekania na bank</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bento" class="py-20 lg:py-40 bg-white relative">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+            <div class="flex flex-col items-center text-center mb-12 lg:mb-24 reveal">
+                <span class="text-[10px] font-black tracking-[0.5em] text-brand-500 uppercase mb-4">Strategia działania</span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter italic">Dlaczego my?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-8">
+                
+                <div class="md:col-span-4 lg:col-span-3 bento-card bg-brand-50 p-7 sm:p-10 lg:p-16 rounded-[28px] sm:rounded-[44px] lg:rounded-[60px] flex flex-col justify-between relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-3xl lg:text-4xl font-black italic leading-tight mb-6 lg:mb-8">Kupujemy to, co inni <br/><span class="text-brand-500 underline decoration-brand-200 underline-offset-8">odrzucają.</span></h3>
+                        <p class="text-gray-500 max-w-sm font-medium leading-relaxed">Specjalizujemy się w nieruchomościach z lokatorami, udziałami, egzekucją komorniczą oraz brakiem ksiąg wieczystych. Każdy problem prawny jest do rozwiązania.</p>
+                    </div>
+                    <div class="mt-10 lg:mt-16 flex gap-3 flex-wrap">
+                        <span class="px-6 py-2.5 bg-white border border-brand-100 rounded-xl text-[10px] font-bold uppercase tracking-widest">Komornik</span>
+                        <span class="px-6 py-2.5 bg-white border border-brand-100 rounded-xl text-[10px] font-bold uppercase tracking-widest">Służebność</span>
+                        <span class="px-6 py-2.5 bg-white border border-brand-100 rounded-xl text-[10px] font-bold uppercase tracking-widest">Udziały</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 lg:col-span-3 bento-card bg-brand-900 text-white p-7 sm:p-10 lg:p-16 rounded-[28px] sm:rounded-[44px] lg:rounded-[60px] relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 lg:w-16 lg:h-16 bg-accent-500 rounded-[22px] lg:rounded-[24px] flex items-center justify-center mb-8 lg:mb-10 shadow-lg shadow-accent-500/25">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-6">Bezpieczeństwo Funduszu</h3>
+                        <p class="text-brand-100/80 leading-relaxed font-light text-base sm:text-lg">Działamy jako profesjonalny podmiot gospodarczy z uregulowanym kapitałem. Gwarantujemy wypłatę zadatku w ciągu godziny od uzgodnienia warunków.</p>
+                    </div>
+                    <i data-lucide="gem" class="absolute -bottom-10 -right-10 w-64 h-64 text-white/5 group-hover:rotate-12 transition-transform duration-[2s]"></i>
+                </div>
+
+                <div class="md:col-span-3 bento-card bg-white border border-brand-100 p-7 sm:p-10 lg:p-12 rounded-[28px] sm:rounded-[44px] lg:rounded-[60px] group">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-500">
+                            <i data-lucide="eye-off" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-xl sm:text-2xl font-black">Dyskrecja 100%</h4>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed font-light italic">Proces sprzedaży jest całkowicie anonimowy. Szanujemy prywatność naszych klientów, unikając zbędnych pytań i rozgłosu w Twoim otoczeniu.</p>
+                </div>
+
+                <div class="md:col-span-3 bento-card bg-brand-100 p-7 sm:p-10 lg:p-12 rounded-[28px] sm:rounded-[44px] lg:rounded-[60px] flex flex-col justify-end">
+                    <div class="mb-10">
+                        <i data-lucide="trending-down" class="w-12 h-12 text-brand-500 mb-4"></i>
+                        <h4 class="text-xl sm:text-2xl font-black">Minimum formalności</h4>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">Wszystkie dokumenty przygotowuje nasz zespół prawny. Twoim jedynym zadaniem jest pojawienie się u notariusza po odbiór pieniędzy.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 lg:py-40 bg-brand-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col items-center text-center mb-12 lg:mb-24 reveal">
+                <span class="text-[10px] font-black tracking-[0.5em] text-brand-500 uppercase mb-4">Przejrzystość</span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter italic">Kluczowe pytania.</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="accordion-item glass p-6 sm:p-8 lg:p-10 rounded-[28px] lg:rounded-[40px] cursor-pointer group hover:bg-white transition-all shadow-sm" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-xl sm:text-2xl font-bold group-hover:text-brand-500 transition">Czy kupujecie same udziały w nieruchomości?</h4>
+                        <i data-lucide="plus" class="chevron w-6 h-6 transition-all duration-500 text-gray-300"></i>
+                    </div>
+                    <div class="accordion-content text-gray-500 leading-relaxed font-light text-base sm:text-lg">
+                        Tak, specjalizujemy się w skupie udziałów (nawet mniejszościowych) w domach, mieszkaniach i działkach, również w sytuacjach konfliktów rodzinnych czy spadkowych.
+                    </div>
+                </div>
+
+                <div class="accordion-item glass p-6 sm:p-8 lg:p-10 rounded-[28px] lg:rounded-[40px] cursor-pointer group hover:bg-white transition-all shadow-sm" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-xl sm:text-2xl font-bold group-hover:text-brand-500 transition">Jak wypłacana jest gotówka?</h4>
+                        <i data-lucide="plus" class="chevron w-6 h-6 transition-all duration-500 text-gray-300"></i>
+                    </div>
+                    <div class="accordion-content text-gray-500 leading-relaxed font-light text-base sm:text-lg">
+                        Wypłata następuje przelewem natychmiastowym bezpośrednio u notariusza po podpisaniu aktu lub w formie gotówki, zgodnie z preferencjami i obowiązującym prawem.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-20 lg:py-40 px-4 sm:px-6">
+        <div class="max-w-[1300px] mx-auto bg-brand-900 rounded-[32px] sm:rounded-[56px] lg:rounded-[80px] overflow-hidden flex flex-col lg:flex-row shadow-[0_70px_150px_-45px_rgba(7,59,50,0.55)]">
+            <div class="lg:w-2/5 p-7 sm:p-12 lg:p-24 text-white flex flex-col justify-between">
+                <div>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-10 lg:mb-16 leading-none italic tracking-tighter">Bezpieczny <br/>start <span class="text-accent-400">nowego</span> etapu.</h2>
+                    <div class="space-y-6 lg:space-y-10">
+                        <div class="flex items-start gap-6">
+                            <div class="w-10 h-10 rounded-full bg-accent-500/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-accent-400"></i>
+                            </div>
+                            <p class="text-lg font-medium opacity-80 leading-tight">Bezpłatna wycena w 15 minut</p>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="w-10 h-10 rounded-full bg-accent-500/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-accent-400"></i>
+                            </div>
+                            <p class="text-lg font-medium opacity-80 leading-tight">Brak kosztów prowizyjnych</p>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="w-10 h-10 rounded-full bg-accent-500/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-accent-400"></i>
+                            </div>
+                            <p class="text-lg font-medium opacity-80 leading-tight">Obsługa prawna w cenie</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 lg:mt-20 pt-8 lg:pt-10 border-t border-white/10">
+                    <p class="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Infolinia 24/7</p>
+                    <p class="text-3xl font-black mt-2 tracking-tighter">123 456 789</p>
+                </div>
+            </div>
+
+            <div class="lg:w-3/5 bg-white p-7 sm:p-12 lg:p-24">
+                <form onsubmit="event.preventDefault();" class="space-y-7 lg:space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-7 lg:gap-10">
+                        <div class="group">
+                            <label class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase mb-4 block">Twoje Imię</label>
+                            <input type="text" placeholder="Jan Kowalski" class="form-input w-full p-5 lg:p-7 rounded-[20px] lg:rounded-[24px] outline-none font-bold text-base lg:text-lg">
+                        </div>
+                        <div class="group">
+                            <label class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase mb-4 block">Numer telefonu</label>
+                            <input type="tel" placeholder="+48 000 000 000" class="form-input w-full p-5 lg:p-7 rounded-[20px] lg:rounded-[24px] outline-none font-bold text-base lg:text-lg">
+                        </div>
+                    </div>
+                    <div class="group">
+                        <label class="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase mb-4 block">Lokalizacja i opis problemu</label>
+                        <textarea rows="4" placeholder="Opisz krótko sytuację (np. licytacja, udziały)..." class="form-input w-full p-5 lg:p-7 rounded-[20px] lg:rounded-[24px] outline-none font-medium italic text-base lg:text-lg"></textarea>
+                    </div>
+                    <button class="premium-btn w-full bg-accent-500 text-white py-6 lg:py-8 rounded-[24px] lg:rounded-[32px] font-black text-base sm:text-lg lg:text-xl tracking-widest hover:bg-accent-600 transition-all shadow-2xl shadow-accent-500/25 group">
+                        ZAMAWIAM ANALIZĘ SPRAWY
+                        <i data-lucide="arrow-right" class="ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform"></i>
+                    </button>
+                    <p class="text-center text-[10px] text-gray-400 font-bold tracking-[0.3em] uppercase">Gwarantowana odpowiedź w 15 minut</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 lg:py-24 border-t border-brand-100 bg-white">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 mb-14 lg:mb-20 text-center md:text-left">
+                <div class="flex flex-col items-center md:items-start gap-6">
+                    <div class="w-12 h-12 bg-brand-900 rounded-2xl flex items-center justify-center text-accent-400 font-black text-xl">JZS</div>
+                    <p class="text-gray-400 font-light italic max-w-xs">Profesjonalny fundusz private equity specjalizujący się w restrukturyzacji trudnych aktywów nieruchomościowych.</p>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <p class="text-[10px] font-black uppercase tracking-[0.4em] text-brand-500 mb-4">Szybkie linki</p>
+                    <a href="#bento" class="font-bold text-sm hover:text-brand-500 transition">O nas</a>
+                    <a href="#faq" class="font-bold text-sm hover:text-brand-500 transition">Pytania i odpowiedzi</a>
+                    <a href="#kontakt" class="font-bold text-sm hover:text-brand-500 transition">Kontakt</a>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <p class="text-[10px] font-black uppercase tracking-[0.4em] text-brand-500 mb-4">Social Media</p>
+                    <div class="flex justify-center md:justify-start gap-8">
+                        <a href="#" class="w-12 h-12 rounded-full border border-brand-100 flex items-center justify-center hover:bg-brand-900 hover:text-white transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-full border border-brand-100 flex items-center justify-center hover:bg-brand-900 hover:text-white transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-brand-50 text-center">
+                <p class="text-[10px] font-bold text-gray-300 tracking-[0.5em] uppercase">© 2026 JZS NIERUCHOMOŚCI | WSZELKIE PRAWA ZASTRZEŻONE</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        function closeMobileMenu() {
+            if (!mobileMenu || !mobileMenuButton) return;
+            mobileMenu.classList.remove('open');
+            mobileMenuButton.classList.remove('menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+
+        if (mobileMenu && mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                mobileMenuButton.classList.toggle('menu-open', isOpen);
+                mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            mobileMenu.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+
+            document.querySelectorAll('.mobile-menu-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!mobileMenu.classList.contains('open')) return;
+                if (mobileMenu.contains(event.target) || mobileMenuButton.contains(event.target)) return;
+                closeMobileMenu();
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeMobileMenu();
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) closeMobileMenu();
+            });
+        }
+
+        const glow = document.getElementById('cursor-glow');
+        if (glow) {
+            document.addEventListener('mousemove', (e) => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        }
+
+        if (window.ScrollReveal) {
+            ScrollReveal().reveal('.reveal-left', { distance: '100px', origin: 'left', duration: 1500, delay: 200, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+            ScrollReveal().reveal('.reveal-right', { distance: '100px', origin: 'right', duration: 1500, delay: 200, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+            ScrollReveal().reveal('.bento-card', { interval: 100, distance: '50px', origin: 'bottom', duration: 1200 });
+            ScrollReveal().reveal('.reveal', { distance: '50px', origin: 'bottom', duration: 1000 });
+        }
+
+        window.addEventListener('scroll', () => {
+            closeMobileMenu();
+            const nav = document.getElementById('navbar');
+            const navInner = nav ? nav.querySelector('div') : null;
+            if (!nav || !navInner) return;
+            if (window.scrollY > 50) {
+                nav.style.top = '10px';
+                navInner.style.height = window.innerWidth < 1024 ? '64px' : '70px';
+                navInner.style.borderRadius = '20px';
+            } else {
+                nav.style.top = window.innerWidth < 1024 ? '16px' : '48px';
+                navInner.style.height = window.innerWidth < 1024 ? '64px' : '80px';
+                navInner.style.borderRadius = window.innerWidth < 1024 ? '20px' : '24px';
+            }
+        });
+
+        function toggleAccordion(el) {
+            const active = el.classList.contains('accordion-active');
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('accordion-active');
+                const chevron = i.querySelector('.chevron');
+                if (chevron) chevron.setAttribute('data-lucide', 'plus');
+            });
+            if (!active) {
+                el.classList.add('accordion-active');
+                const chevron = el.querySelector('.chevron');
+                if (chevron) chevron.setAttribute('data-lucide', 'minus');
+            }
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
