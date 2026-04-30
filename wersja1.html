@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JZS Nieruchomości | Lider Ekspresowego Skupu - Klasa Światowa</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F9FAF8',
+                            100: '#F1F3F0',
+                            200: '#E2E7E0',
+                            500: '#5B7051', 
+                            600: '#4D5F45',
+                            900: '#0F140D',
+                        },
+                        gold: '#C5A059'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --brand: #5B7051; }
+        body { background-color: #F9FAF8; cursor: default; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F1F3F0; }
+        ::-webkit-scrollbar-thumb { background: #5B7051; border-radius: 10px; }
+
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); }
+        .text-gradient { background: linear-gradient(135deg, #0F140D 0%, #5B7051 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .bento-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.03); }
+        .bento-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px -12px rgba(91, 112, 81, 0.15); border-color: rgba(91, 112, 81, 0.2); }
+
+        .step-line::after { content: ''; position: absolute; width: 2px; height: 100%; background: #E2E7E0; left: 50%; top: 0; z-index: 0; }
+        
+        @keyframes subtle-zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+        .zoom-anim { animation: subtle-zoom 20s infinite alternate ease-in-out; }
+
+        .accordion-content { transition: max-height 0.5s ease-in-out; max-height: 0; overflow: hidden; }
+        .accordion-active .accordion-content { max-height: 300px; }
+        .accordion-active .chevron { transform: rotate(180deg); color: #5B7051; }
+    </style>
+</head>
+<body class="font-sans antialiased text-brand-900">
+
+    <nav class="fixed top-0 w-full z-[100] py-6 px-6 lg:px-12 transition-all duration-500" id="navbar">
+        <div class="max-w-[1600px] mx-auto glass rounded-2xl px-6 lg:px-10 h-20 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-brand-500 rounded-lg flex items-center justify-center text-white font-black text-lg">JZS</div>
+                <div class="flex flex-col">
+                    <span class="font-black text-xl tracking-tighter leading-none">JZS <span class="text-brand-500 font-normal serif">Nieruchomości</span></span>
+                    <span class="text-[9px] tracking-[0.3em] font-bold text-gray-400 uppercase">Premium Solutions</span>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex items-center gap-12">
+                <a href="#o-nas" class="text-sm font-semibold tracking-wide hover:text-brand-500 transition">O NAS</a>
+                <a href="#proces" class="text-sm font-semibold tracking-wide hover:text-brand-500 transition">PROCES</a>
+                <a href="#bento" class="text-sm font-semibold tracking-wide hover:text-brand-500 transition">KORZYŚCI</a>
+                <a href="#kontakt" class="bg-brand-900 text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-brand-500 transition-all shadow-xl shadow-brand-900/10">BEZPŁATNA WYCENA</a>
+            </div>
+
+            <div class="lg:hidden">
+                <button class="p-2"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center pt-24 overflow-hidden bg-brand-50">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-[1600px] mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-20 items-center relative z-10">
+            <div class="reveal-left">
+                <div class="inline-flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm mb-8 border border-brand-100">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    <span class="text-[11px] font-black tracking-widest text-brand-600 uppercase">Eksperci od trudnych spraw</span>
+                </div>
+                <h1 class="text-6xl lg:text-[85px] font-extrabold leading-[0.95] tracking-tighter text-brand-900 mb-10">
+                    Odzyskaj <br/><span class="serif italic font-normal text-brand-500">spokój i gotówkę</span> <br/>w 48 godzin.
+                </h1>
+                <p class="text-xl text-gray-500 max-w-lg mb-12 leading-relaxed font-light">
+                    Nie jesteśmy zwykłym pośrednikiem. Jesteśmy Twoim kapitałem ratunkowym. Skupujemy nieruchomości z długami, komornikiem i problemami prawnymi.
+                </p>
+                <div class="flex flex-wrap gap-6">
+                    <a href="#kontakt" class="bg-brand-500 text-white px-12 py-6 rounded-2xl font-bold text-lg hover:bg-brand-600 transition-all shadow-2xl shadow-brand-500/30 group">
+                        Rozpocznij proces
+                        <i data-lucide="chevron-right" class="inline ml-2 group-hover:translate-x-1 transition"></i>
+                    </a>
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-white rounded-xl shadow-sm border border-brand-100">
+                            <i data-lucide="shield-check" class="text-brand-500"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">Gwarancja 100%</p>
+                            <p class="text-xs text-gray-400">Poufności i Bezpieczeństwa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative reveal-right">
+                <div class="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl shadow-brand-900/20 group">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" alt="Luksusowa Nieruchomość" class="w-full h-full object-cover zoom-anim">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent"></div>
+                    
+                    <div class="absolute bottom-10 left-10 right-10">
+                        <div class="glass p-8 rounded-3xl text-brand-900">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-[10px] font-bold">LIVE STATS</span>
+                                <span class="text-xs font-bold text-gray-500 italic">Ostatnia transakcja: 4h temu</span>
+                            </div>
+                            <div class="flex gap-8">
+                                <div>
+                                    <p class="text-3xl font-black">2.4M</p>
+                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Suma spłaconych długów</p>
+                                </div>
+                                <div class="w-px h-10 bg-brand-200 mt-2"></div>
+                                <div>
+                                    <p class="text-3xl font-black">48h</p>
+                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Szybkość wypłaty</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bento" class="py-32 px-6">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <h2 class="text-sm font-bold text-brand-500 tracking-[0.3em] uppercase mb-4">Dlaczego my</h2>
+                <p class="text-4xl lg:text-5xl font-black tracking-tight">Rewolucja w sprzedaży nieruchomości.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Large Card -->
+                <div class="md:col-span-2 md:row-span-2 bento-card bg-brand-900 rounded-[40px] p-12 text-white flex flex-col justify-between overflow-hidden relative group">
+                    <div class="relative z-10">
+                        <i data-lucide="zap" class="w-12 h-12 text-brand-500 mb-8"></i>
+                        <h3 class="text-4xl font-bold mb-6 italic leading-none">Gotówka do ręki <br/>u Notariusza.</h3>
+                        <p class="text-brand-100/60 text-lg max-w-xs font-light">Nie czekasz na przelewy bankowe. Środki otrzymujesz natychmiast po podpisaniu aktu.</p>
+                    </div>
+                    <div class="absolute bottom-[-10%] right-[-10%] opacity-10 group-hover:opacity-20 transition-all duration-700">
+                        <i data-lucide="banknote" class="w-80 h-80"></i>
+                    </div>
+                </div>
+
+                <div class="bento-card bg-white rounded-[40px] p-10 border border-brand-100">
+                    <i data-lucide="shield-alert" class="w-10 h-10 text-brand-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Zatrzymujemy komornika</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Mamy doświadczenie w negocjacjach z wierzycielami nawet 24h przed licytacją.</p>
+                </div>
+
+                <div class="bento-card bg-brand-100 rounded-[40px] p-10">
+                    <i data-lucide="scale" class="w-10 h-10 text-brand-900 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 italic">Czysta karta</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pomagamy wyjść z pętli zadłużenia i zacząć życie bez obciążeń finansowych.</p>
+                </div>
+
+                <div class="md:col-span-2 bento-card bg-brand-500 rounded-[40px] p-10 text-white flex items-center gap-8 group">
+                    <div class="bg-white/10 p-6 rounded-3xl">
+                        <i data-lucide="users" class="w-10 h-10"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Bez zbędnych pytań</h3>
+                        <p class="text-white/70 text-sm">Gwarantujemy pełną dyskrecję przed sąsiadami i rodziną.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-brand-900 relative">
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-brand-500 font-bold tracking-widest text-sm mb-4">KLAROWNOŚĆ</h2>
+                <h3 class="text-white text-5xl font-black">Twoja oszczędność w liczbach</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10 rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
+                <!-- Traditional -->
+                <div class="p-12 lg:p-16 bg-brand-900/50">
+                    <p class="text-gray-400 font-bold text-xs uppercase tracking-widest mb-10 text-center">BIURO NIERUCHOMOŚCI</p>
+                    <div class="space-y-10">
+                        <div class="flex justify-between items-end border-b border-white/5 pb-4">
+                            <span class="text-gray-400 text-sm italic">Czas sprzedaży</span>
+                            <span class="text-white font-bold">6-12 m-cy</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/5 pb-4">
+                            <span class="text-gray-400 text-sm italic">Koszt prowizji</span>
+                            <span class="text-white font-bold">ok. 25 000 zł</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/5 pb-4">
+                            <span class="text-gray-400 text-sm italic">Ryzyko upadku</span>
+                            <span class="text-white font-bold text-red-500">Bardzo wysokie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-12 lg:p-16 bg-brand-500 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4">
+                        <div class="bg-white/20 px-4 py-1 rounded-full text-[10px] font-black text-white tracking-widest">PREMIUM CHOICE</div>
+                    </div>
+                    <p class="text-white/60 font-bold text-xs uppercase tracking-widest mb-10 text-center">JZS NIERUCHOMOŚCI</p>
+                    <div class="space-y-10">
+                        <div class="flex justify-between items-end border-b border-white/20 pb-4">
+                            <span class="text-white text-sm font-bold italic">Czas sprzedaży</span>
+                            <span class="text-white text-3xl font-black tracking-tighter italic">48 GODZIN</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/20 pb-4">
+                            <span class="text-white text-sm font-bold italic">Koszt prowizji</span>
+                            <span class="text-white text-3xl font-black tracking-tighter italic">0 ZŁ</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/20 pb-4">
+                            <span class="text-white text-sm font-bold italic">Ryzyko upadku</span>
+                            <span class="text-white text-3xl font-black tracking-tighter italic italic">BRAK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-black text-center mb-16 italic">Pytania, które warto zadać.</h2>
+            
+            <div class="space-y-6">
+                <div class="accordion-item border-b border-brand-100 pb-6 cursor-pointer group" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center py-4">
+                        <h4 class="text-lg font-bold group-hover:text-brand-500 transition">Kupujecie nieruchomości z lokatorami?</h4>
+                        <i data-lucide="plus" class="chevron w-5 h-5 text-gray-300 transition-all"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="text-gray-500 leading-relaxed italic">Tak, specjalizujemy się w trudnych przypadkach, w tym w skupie nieruchomości z lokatorami kwaterunkowymi, dożywotnikami oraz osobami niechętnymi do wyprowadzki. Pomagamy prawnie rozwiązać te sytuacje.</p>
+                    </div>
+                </div>
+                <!-- Dodaj więcej wg wzoru -->
+                <div class="accordion-item border-b border-brand-100 pb-6 cursor-pointer group" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center py-4">
+                        <h4 class="text-lg font-bold group-hover:text-brand-500 transition">Jak wyceniana jest nieruchomość?</h4>
+                        <i data-lucide="plus" class="chevron w-5 h-5 text-gray-300 transition-all"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="text-gray-500 leading-relaxed italic">Wycenę przygotowujemy w oparciu o aktualne ceny rynkowe oraz realny stan prawny. Nasze oferty są rzetelne i końcowe – nie zmieniamy zdania u Notariusza.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-32 bg-brand-50 relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 flex flex-col lg:flex-row gap-20 items-start">
+            <div class="lg:w-1/3 reveal-left">
+                <h2 class="text-6xl font-black mb-8 italic">Zrób pierwszy krok.</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center text-white shadow-xl">
+                            <i data-lucide="phone-call" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Infolinia 24/7</p>
+                            <p class="text-2xl font-black">123 456 789</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 bg-brand-900 rounded-2xl flex items-center justify-center text-white shadow-xl">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">E-mail</p>
+                            <p class="text-xl font-bold">kontakt@jzs.pl</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-2/3 bg-white p-12 lg:p-16 rounded-[50px] shadow-2xl border border-brand-100 reveal-right">
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black tracking-widest uppercase text-brand-500">Imię i Nazwisko</label>
+                        <input type="text" placeholder="Jan Kowalski" class="w-full bg-brand-50 p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black tracking-widest uppercase text-brand-500">Numer Telefonu</label>
+                        <input type="tel" placeholder="+48 ..." class="w-full bg-brand-50 p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition">
+                    </div>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-[10px] font-black tracking-widest uppercase text-brand-500">W czym możemy pomóc?</label>
+                        <textarea rows="4" placeholder="Opisz krótko swoją sytuację..." class="w-full bg-brand-50 p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition"></textarea>
+                    </div>
+                    <button class="md:col-span-2 bg-brand-500 text-white font-black py-6 rounded-2xl shadow-2xl shadow-brand-500/30 hover:bg-brand-900 transition-all transform hover:-translate-y-1">
+                        DARMOWA ANALIZA PRZYPADKU
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed bottom-10 right-10 z-[200] flex flex-col gap-4">
+        <div id="chat-bubble" class="hidden glass w-80 mb-4 rounded-3xl overflow-hidden shadow-2xl scale-90 opacity-0 transition-all duration-500 origin-bottom-right">
+            <div class="bg-brand-900 p-6 text-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
+                    <span class="text-[10px] font-bold tracking-widest uppercase">Ekspert JZS Online</span>
+                </div>
+                <p class="text-xl font-bold mt-2 italic">Jak pomóc?</p>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-sm text-gray-500 leading-relaxed italic italic">"Szybka analiza prawna Twojego długu? Napisz teraz."</p>
+                <a href="https://wa.me/48123456789" class="block text-center bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition">Start WhatsApp</a>
+            </div>
+        </div>
+        
+        <button onclick="toggleChat()" class="w-20 h-20 bg-brand-500 rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-all border-8 border-white">
+            <i data-lucide="message-square" id="c-icon" class="text-white w-8 h-8"></i>
+            <i data-lucide="x" id="c-close" class="text-white w-8 h-8 hidden"></i>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        ScrollReveal().reveal('.reveal', { delay: 200, distance: '50px', origin: 'bottom', duration: 1000 });
+        ScrollReveal().reveal('.reveal-left', { delay: 300, distance: '80px', origin: 'left', duration: 1200 });
+        ScrollReveal().reveal('.reveal-right', { delay: 300, distance: '80px', origin: 'right', duration: 1200 });
+
+        window.onscroll = function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.add('py-6');
+                nav.classList.remove('py-4');
+            }
+        };
+
+        function toggleAccordion(el) {
+            const active = el.classList.contains('accordion-active');
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('accordion-active'));
+            if (!active) el.classList.add('accordion-active');
+        }
+
+        function toggleChat() {
+            const b = document.getElementById('chat-bubble');
+            const open = document.getElementById('c-icon');
+            const close = document.getElementById('c-close');
+            
+            if (b.classList.contains('hidden')) {
+                b.classList.remove('hidden');
+                setTimeout(() => { b.classList.add('scale-100', 'opacity-100'); b.classList.remove('scale-90', 'opacity-0'); }, 10);
+                open.classList.add('hidden'); close.classList.remove('hidden');
+            } else {
+                b.classList.remove('scale-100', 'opacity-100'); b.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => { b.classList.add('hidden'); }, 500);
+                open.classList.remove('hidden'); close.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
