@@ -18,9 +18,9 @@
   "use strict";
 
   /* ── Konfiguracja ─────────────────────────────────────────────────── */
-  var EMAILJS_PUBLIC_KEY  = "TWOJ_KLUCZ_PUBLICZNY";   // ← wpisz swój klucz
-  var EMAILJS_SERVICE_ID  = "TWOJE_SERVICE_ID";        // ← wpisz ID usługi
-  var EMAILJS_TEMPLATE_ID = "TWOJE_TEMPLATE_ID";       // ← wpisz ID szablonu
+  var EMAILJS_PUBLIC_KEY  = "uy6SDlhVlaRPl1vDg";   // ← wpisz swój klucz
+  var EMAILJS_SERVICE_ID  = "service_06fl2ll";        // ← wpisz ID usługi
+  var EMAILJS_TEMPLATE_ID = "template_gl8mwcq";       // ← wpisz ID szablonu
 
   /* ── Wstrzyknięcie SDK EmailJS (jeśli jeszcze nie załadowany) ────── */
   function loadEmailJS(callback) {
@@ -96,12 +96,14 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = "WYSYŁANIE…";
 
+      var now = new Date();
       var templateParams = {
-        from_name:  name,
-        from_phone: phone,
-        email:      email,
-        message:    message || "Brak opisu.",
-        reply_to:   email,
+        name:     name,
+        phone:    phone,
+        email:    email,
+        message:  message || "Brak opisu.",
+        time:     now.toLocaleString("pl-PL"),
+        reply_to: email,
       };
 
       window.emailjs
