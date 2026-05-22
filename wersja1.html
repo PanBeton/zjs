@@ -291,30 +291,30 @@
             </div>
         </div>
         <div class="w-full lg:w-2/3 bg-brand-50 p-6 sm:p-10 lg:p-16 rounded-[40px] lg:rounded-[50px] shadow-sm border border-brand-100 reveal-right">
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" onsubmit="event.preventDefault(); alert('Dziękujemy! Skontaktujemy się w ciągu 15 minut.');">
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                 <div class="space-y-2 text-left">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Imię i Nazwisko</label>
-                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="Jan Kowalski">
+                    <input type="text" name="from_name" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="Jan Kowalski">
                 </div>
                 <div class="space-y-2 text-left">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Numer Telefonu</label>
-                    <input type="tel" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm" placeholder="+48 000 000 000">
+                    <input type="tel" name="from_phone" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm" placeholder="+48 000 000 000">
                 </div>
                 <div class="md:col-span-2 space-y-2 text-left">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Adres e-mail</label>
-                    <input type="email" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="jan@example.com">
+                    <input type="email" name="from_email" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="jan@example.com">
                 </div>
                 <div class="md:col-span-2 space-y-2 text-left pt-4 border-t border-brand-200/50">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-900 ml-2">Adres nieruchomości (Ulica, Miasto)</label>
-                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. Marszałkowska 10/12, Warszawa">
+                    <input type="text" name="property_address" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. Marszałkowska 10/12, Warszawa">
                 </div>
                 <div class="space-y-2 text-left">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Metraż (m²)</label>
-                    <input type="number" step="0.1" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 54.5">
+                    <input type="number" name="property_area" step="0.1" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 54.5">
                 </div>
                 <div class="space-y-2 text-left">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Piętro</label>
-                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 3 (z 4) lub parter">
+                    <input type="text" name="property_floor" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 3 (z 4) lub parter">
                 </div>
                 <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                     <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3 border border-brand-100/50">
@@ -332,7 +332,7 @@
                 </div>
                 <div class="md:col-span-2 space-y-2 text-left pt-2">
                     <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Dodatkowe informacje</label>
-                    <textarea rows="3" class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="Opisz krótko sytuację prawną nieruchomości..."></textarea>
+                    <textarea name="message" rows="3" class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="Opisz krótko sytuację prawną nieruchomości..."></textarea>
                 </div>
                 <button type="submit" class="md:col-span-2 bg-brand-900 text-white font-black py-6 rounded-2xl shadow-2xl hover:bg-brand-500 transition-all transform hover:-translate-y-1 tracking-widest uppercase text-sm">
                     Wyślij prośbę o wycenę
@@ -368,6 +368,7 @@
     </button>
 </div>
 
+<script src="js/mailer.js"></script>
 <script>
     lucide.createIcons();
     ScrollReveal().reveal('.reveal',       { delay:200, distance:'50px',  origin:'bottom', duration:1000 });

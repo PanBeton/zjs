@@ -7,11 +7,23 @@
  *   EMAILJS_TEMPLATE_ID — ID szablonu wiadomości (zakładka "Email Templates")
  *
  * Parametry szablonu EmailJS (użyj ich w treści szablonu jako {{...}}):
- *   {{from_name}}   — imię i nazwisko nadawcy
- *   {{from_phone}}  — numer telefonu nadawcy
- *   {{email}}       — adres e-mail nadawcy
- *   {{message}}     — treść wiadomości
- *   {{reply_to}}    — adres e-mail nadawcy (do odpowiedzi)
+ *
+ *   Dane kontaktowe (wszystkie wersje):
+ *   {{from_name}}        — imię i nazwisko nadawcy
+ *   {{from_phone}}       — numer telefonu nadawcy
+ *   {{from_email}}       — adres e-mail nadawcy
+ *   {{message}}          — dodatkowe informacje / opis
+ *   {{send_time}}        — data i godzina wysłania
+ *   {{reply_to}}         — adres e-mail (do odpowiedzi)
+ *
+ *   Dane nieruchomości (wersja1) są wbudowane w {{message}} jako sformatowany tekst:
+ *     Adres: ...
+ *     Metraż: ... m²
+ *     Piętro: ...
+ *     Balkon — Tak/Nie
+ *     Garaż — Tak/Nie
+ *     Piwnica — Tak/Nie
+ *     (opcjonalnie) dodatkowy opis klienta
  */
 
 (function () {
@@ -66,12 +78,20 @@
     var form = section.querySelector("form");
     if (!form) return;
 
-    /* Pobieramy pola przez typ/tag (brak id/name w HTML) */
-    var nameInput    = form.querySelector('input[type="text"]');
-    var phoneInput   = form.querySelector('input[type="tel"]');
-    var emailInput   = form.querySelector('input[type="email"]');
-    var messageInput = form.querySelector("textarea");
+    /* Pola podstawowe — szukamy po atrybucie name, fallback na typ */
+    var nameInput    = form.querySelector('[name="from_name"]')    || form.querySelector('input[type="text"]');
+    var phoneInput   = form.querySelector('[name="from_phone"]')   || form.querySelector('input[type="tel"]');
+    var emailInput   = form.querySelector('[name="from_email"]')   || form.querySelector('input[type="email"]');
+    var messageInput = form.querySelector('[name="message"]')      || form.querySelector('textarea');
     var submitBtn    = form.querySelector("button[type='submit'], button:not([type]), button[type='button']");
+
+    /* Pola nieruchomości (wersja1 — opcjonalne) */
+    var addressInput = form.querySelector('[name="property_address"]');
+    var areaInput    = form.querySelector('[name="property_area"]');
+    var floorInput   = form.querySelector('[name="property_floor"]');
+    var balkonInput  = form.querySelector('[name="balkon"]');
+    var garazInput   = form.querySelector('[name="garaz"]');
+    var piwnicaInput = form.querySelector('[name="piwnica"]');
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -96,14 +116,26 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = "WYSYŁANIE…";
 
+      /* Zbuduj treść wiadomości — dane nieruchomości + opis klienta */
+      var propertyLines = [];
+      if (addressInput || areaInput || floorInput || balkonInput || garazInput || piwnicaInput) {
+        if (addressInput) propertyLines.push("Adres: "   + (addressInput.value.trim() || "—"));
+        if (areaInput)    propertyLines.push("Metraż: "  + (areaInput.value.trim()    || "—") + " m²");
+        if (floorInput)   propertyLines.push("Piętro: "  + (floorInput.value.trim()   || "—"));
+        if (balkonInput)  propertyLines.push("Balkon — " + (balkonInput.checked  ? "Tak" : "Nie"));
+        if (garazInput)   propertyLines.push("Garaż — "  + (garazInput.checked   ? "Tak" : "Nie"));
+        if (piwnicaInput) propertyLines.push("Piwnica — "+ (piwnicaInput.checked ? "Tak" : "Nie"));
+      }
+      if (message) propertyLines.push("", message);
+
       var now = new Date();
       var templateParams = {
-        name:     name,
-        phone:    phone,
-        email:    email,
-        message:  message || "Brak opisu.",
-        time:     now.toLocaleString("pl-PL"),
-        reply_to: email,
+        from_name:  name,
+        from_phone: phone,
+        from_email: email,
+        message:    propertyLines.length ? propertyLines.join("\n") : "Brak opisu.",
+        send_time:  now.toLocaleString("pl-PL"),
+        reply_to:   email,
       };
 
       window.emailjs
@@ -113,7 +145,14 @@
           submitBtn.disabled = false;
           if (nameInput)    nameInput.value    = "";
           if (phoneInput)   phoneInput.value   = "";
+          if (emailInput)   emailInput.value   = "";
           if (messageInput) messageInput.value = "";
+          if (addressInput) addressInput.value = "";
+          if (areaInput)    areaInput.value    = "";
+          if (floorInput)   floorInput.value   = "";
+          if (balkonInput)  balkonInput.checked  = false;
+          if (garazInput)   garazInput.checked   = false;
+          if (piwnicaInput) piwnicaInput.checked = false;
           showFeedback(submitBtn, "success", "Wiadomość wysłana! Skontaktujemy się wkrótce.");
         })
         .catch(function (err) {
