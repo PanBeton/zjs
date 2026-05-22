@@ -116,9 +116,19 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = "WYSYŁANIE…";
 
-      /* Zbuduj treść wiadomości — dane nieruchomości + opis klienta */
+      /* Zbuduj treść wiadomości — dane kontaktowe + nieruchomości + opis */
       var propertyLines = [];
+
+      /* Dane kontaktowe zawsze na górze */
+      propertyLines.push("── Dane kontaktowe ──");
+      propertyLines.push("Imię i Nazwisko: " + (name  || "—"));
+      propertyLines.push("Telefon: "         + (phone || "—"));
+      propertyLines.push("E-mail: "          + (email || "—"));
+
+      /* Dane nieruchomości (wersja1) */
       if (addressInput || areaInput || floorInput || balkonInput || garazInput || piwnicaInput) {
+        propertyLines.push("");
+        propertyLines.push("── Dane nieruchomości ──");
         if (addressInput) propertyLines.push("Adres: "   + (addressInput.value.trim() || "—"));
         if (areaInput)    propertyLines.push("Metraż: "  + (areaInput.value.trim()    || "—") + " m²");
         if (floorInput)   propertyLines.push("Piętro: "  + (floorInput.value.trim()   || "—"));
@@ -126,7 +136,7 @@
         if (garazInput)   propertyLines.push("Garaż — "  + (garazInput.checked   ? "Tak" : "Nie"));
         if (piwnicaInput) propertyLines.push("Piwnica — "+ (piwnicaInput.checked ? "Tak" : "Nie"));
       }
-      if (message) propertyLines.push("", message);
+      if (message) { propertyLines.push(""); propertyLines.push(message); }
 
       var now = new Date();
       var templateParams = {
