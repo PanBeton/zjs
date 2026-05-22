@@ -37,11 +37,13 @@
     <style>
         :root { --brand: #5B7051; }
         body { background-color: #F9FAF8; cursor: default; overflow-x: hidden; }
+        body { background-color: #F9FAF8; cursor: default; overflow-x: hidden; }
         
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #F1F3F0; }
         ::-webkit-scrollbar-thumb { background: #5B7051; border-radius: 10px; }
 
+        .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);}
         .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);}
         
         .bento-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.03); }
@@ -103,8 +105,35 @@
                     <i data-lucide="menu" id="m-open"></i>
                     <i data-lucide="x" id="m-close" class="hidden"></i>
                 </button>
+                
+                <!-- Desktop Links -->
+                <div class="hidden lg:flex items-center gap-12 text-xs font-bold tracking-widest">
+                    <a href="#proces" class="hover:text-brand-500 transition">PROCES</a>
+                    <a href="#bento" class="hover:text-brand-500 transition">KORZYŚCI</a>
+                    <a href="#kontakt" class="bg-brand-900 text-white px-8 py-4 rounded-full hover:bg-brand-500 transition-all">BEZPŁATNA WYCENA</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button class="lg:hidden p-2 flex items-center justify-center w-10 h-10 rounded-full" onclick="toggleMenu()">
+                    <i data-lucide="menu" id="m-open"></i>
+                    <i data-lucide="x" id="m-close" class="hidden"></i>
+                </button>
             </div>
 
+            <!-- ROZWIJANA TREŚĆ MENU (WYSYWA SIĘ W DÓŁ) -->
+            <div class="px-8 pb-10 flex flex-col gap-6 lg:hidden border-t border-gray-50 pt-6">
+                <a href="#proces" onclick="toggleMenu()" class="mobile-link text-xl font-bold flex justify-between items-center" style="transition-delay: 0.1s;">
+                    Proces <i data-lucide="arrow-right" class="w-4 h-4 opacity-20"></i>
+                </a>
+                <a href="#bento" onclick="toggleMenu()" class="mobile-link text-xl font-bold flex justify-between items-center" style="transition-delay: 0.2s;">
+                    Korzyści <i data-lucide="arrow-right" class="w-4 h-4 opacity-20"></i>
+                </a>
+                <a href="#faq" onclick="toggleMenu()" class="mobile-link text-xl font-bold flex justify-between items-center" style="transition-delay: 0.3s;">
+                    FAQ <i data-lucide="arrow-right" class="w-4 h-4 opacity-20"></i>
+                </a>
+                <a href="#kontakt" onclick="toggleMenu()" class="mobile-link bg-brand-500 text-white py-5 rounded-2xl text-center text-lg font-bold mt-4 shadow-lg shadow-brand-500/20" style="transition-delay: 0.4s;">
+                    Bezpłatna Wycena
+                </a>
             <!-- ROZWIJANA TREŚĆ MENU (WYSYWA SIĘ W DÓŁ) -->
             <div class="px-8 pb-10 flex flex-col gap-6 lg:hidden border-t border-gray-50 pt-6">
                 <a href="#proces" onclick="toggleMenu()" class="mobile-link text-xl font-bold flex justify-between items-center" style="transition-delay: 0.1s;">
@@ -124,6 +153,7 @@
     </nav>
 
     <!-- HERO SECTION -->
+    <!-- HERO SECTION -->
     <section class="relative min-h-screen flex items-center pt-24 overflow-hidden bg-brand-50">
         <div class="absolute inset-0 z-0">
             <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[120px]"></div>
@@ -134,24 +164,32 @@
             <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover brightness-[0.3]">
         </div>
 
+        <div class="absolute inset-0 z-0 lg:hidden">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover brightness-[0.3]">
+        </div>
+
         <div class="max-w-[1600px] mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div class="reveal-left">
                 <h1 class="text-5xl lg:text-[85px] font-extrabold leading-[0.95] tracking-tighter text-white lg:text-brand-900 mb-10">
-                    Odzyskaj <br/><span class="serif italic font-normal text-brand-500">spokój i gotówkę</span> <br/>w 48 godzin.
+                    Trudne sprawy <br/><span class="serif italic font-normal text-brand-500">proste</span> <br/>wyjście.
                 </h1>
                 <p class="text-lg lg:text-xl text-gray-300 lg:text-gray-500 max-w-lg mb-12 leading-relaxed font-light">
-                    Nie jesteśmy zwykłym pośrednikiem. Jesteśmy Twoim kapitałem ratunkowym. Skupujemy nieruchomości z długami, komornikiem i problemami prawnymi.
+                    Jesteśmy młodym prężnym zespołem z wieloletnim doświadczeniem wyniesionym z poprzednich miejsc zatrudnienia. Gwarantujemy bezpieczeństwo transakcji pod opieką najlepszych notariuszy w Polsce.
                 </p>
                 <div class="flex flex-wrap gap-6">
+                    <a href="#kontakt" class="w-full sm:w-auto text-center bg-brand-500 text-white px-12 py-6 rounded-2xl font-bold text-lg hover:bg-brand-600 transition-all shadow-2xl shadow-brand-500/30 group">
                     <a href="#kontakt" class="w-full sm:w-auto text-center bg-brand-500 text-white px-12 py-6 rounded-2xl font-bold text-lg hover:bg-brand-600 transition-all shadow-2xl shadow-brand-500/30 group">
                         Rozpocznij proces
                         <i data-lucide="chevron-right" class="inline ml-2 group-hover:translate-x-1 transition"></i>
                     </a>
                     <div class="flex items-center gap-4 bg-white/10 lg:bg-transparent p-4 lg:p-0 rounded-2xl backdrop-blur-md lg:backdrop-blur-none border border-white/10 lg:border-none">
                         <div class="p-3 bg-white rounded-xl shadow-sm">
+                    <div class="flex items-center gap-4 bg-white/10 lg:bg-transparent p-4 lg:p-0 rounded-2xl backdrop-blur-md lg:backdrop-blur-none border border-white/10 lg:border-none">
+                        <div class="p-3 bg-white rounded-xl shadow-sm">
                             <i data-lucide="shield-check" class="text-brand-500"></i>
                         </div>
                         <div>
+                            <p class="font-bold text-sm text-white lg:text-brand-900 uppercase tracking-tighter">Gwarancja 100%</p>
                             <p class="font-bold text-sm text-white lg:text-brand-900 uppercase tracking-tighter">Gwarancja 100%</p>
                             <p class="text-xs text-gray-400">Poufności i Bezpieczeństwa</p>
                         </div>
@@ -159,6 +197,8 @@
                 </div>
             </div>
 
+            <!-- DESKTOP PREVIEW CARD -->
+            <div class="relative reveal-right hidden lg:block">
             <!-- DESKTOP PREVIEW CARD -->
             <div class="relative reveal-right hidden lg:block">
                 <div class="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl shadow-brand-900/20 group">
@@ -169,16 +209,21 @@
                         <div class="glass p-8 rounded-3xl text-brand-900">
                             <div class="flex justify-between items-center mb-6">
                                 <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest">LIVE STATUS</span>
+                                <span class="text-xs font-bold text-gray-500 italic">Transakcja: 24h temu</span>
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest">LIVE STATUS</span>
                                 <span class="text-xs font-bold text-gray-500 italic">Transakcja: 4h temu</span>
                             </div>
                             <div class="flex gap-8">
                                 <div>
                                     <p class="text-3xl font-black">2.4M</p>
                                     <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">Spłaconych długów</p>
+                                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">Spłaconych długów</p>
                                 </div>
                                 <div class="w-px h-10 bg-brand-200 mt-2"></div>
                                 <div>
                                     <p class="text-3xl font-black">48h</p>
+                                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">Szybkość wypłaty</p>
                                     <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">Szybkość wypłaty</p>
                                 </div>
                             </div>
@@ -190,9 +235,12 @@
     </section>
 
     <!-- BENTO GRID BENEFITS -->
+    <!-- BENTO GRID BENEFITS -->
     <section id="bento" class="py-32 px-6">
         <div class="max-w-[1400px] mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <h2 class="text-xs font-bold text-brand-500 tracking-[0.4em] uppercase mb-4">Eksperci od spraw trudnych</h2>
+                <p class="text-4xl lg:text-6xl font-black tracking-tight">Rewolucja w sprzedaży.</p>
                 <h2 class="text-xs font-bold text-brand-500 tracking-[0.4em] uppercase mb-4">Eksperci od spraw trudnych</h2>
                 <p class="text-4xl lg:text-6xl font-black tracking-tight">Rewolucja w sprzedaży.</p>
             </div>
@@ -201,6 +249,8 @@
                 <div class="md:col-span-2 md:row-span-2 bento-card bg-brand-900 rounded-[40px] p-12 text-white flex flex-col justify-between overflow-hidden relative group">
                     <div class="relative z-10">
                         <i data-lucide="zap" class="w-12 h-12 text-brand-500 mb-8"></i>
+                        <h3 class="text-4xl lg:text-5xl font-bold mb-6 italic leading-tight">Gotówka do ręki <br/>u Notariusza.</h3>
+                        <p class="text-brand-100/60 text-lg max-w-xs font-light italic">Pieniądze otrzymujesz w momencie podpisania aktu, bez czekania na bank.</p>
                         <h3 class="text-4xl lg:text-5xl font-bold mb-6 italic leading-tight">Gotówka do ręki <br/>u Notariusza.</h3>
                         <p class="text-brand-100/60 text-lg max-w-xs font-light italic">Pieniądze otrzymujesz w momencie podpisania aktu, bez czekania na bank.</p>
                     </div>
@@ -213,19 +263,25 @@
                     <i data-lucide="shield-alert" class="w-10 h-10 text-brand-500 mb-6"></i>
                     <h3 class="text-xl font-bold mb-4">Stop Komornikowi</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">Wstrzymujemy licytacje nawet w ostatniej chwili. Negocjujemy z wierzycielami za Ciebie.</p>
+                    <h3 class="text-xl font-bold mb-4">Stop Komornikowi</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Wstrzymujemy licytacje nawet w ostatniej chwili. Negocjujemy z wierzycielami za Ciebie.</p>
                 </div>
 
                 <div class="bento-card bg-brand-100 rounded-[40px] p-10">
                     <i data-lucide="scale" class="w-10 h-10 text-brand-900 mb-6"></i>
                     <h3 class="text-xl font-bold mb-4 italic">Czysta karta</h3>
                     <p class="text-gray-600 text-sm leading-relaxed italic">Oddłużamy nieruchomość i przywracamy Ci płynność finansową.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed italic">Oddłużamy nieruchomość i przywracamy Ci płynność finansową.</p>
                 </div>
 
                 <div class="md:col-span-2 bento-card bg-brand-500 rounded-[40px] p-10 text-white flex items-center gap-8 group">
                     <div class="bg-white/10 p-6 rounded-3xl shrink-0">
+                    <div class="bg-white/10 p-6 rounded-3xl shrink-0">
                         <i data-lucide="users" class="w-10 h-10"></i>
                     </div>
                     <div>
+                        <h3 class="text-2xl font-bold mb-2">Poufność Premium</h3>
+                        <p class="text-white/70 text-sm">Nikt nie dowie się o sprzedaży. Działamy cicho, skutecznie i bez ogłoszeń w internecie.</p>
                         <h3 class="text-2xl font-bold mb-2">Poufność Premium</h3>
                         <p class="text-white/70 text-sm">Nikt nie dowie się o sprzedaży. Działamy cicho, skutecznie i bez ogłoszeń w internecie.</p>
                     </div>
@@ -234,6 +290,24 @@
         </div>
     </section>
 
+    <!-- PROCES SECTION -->
+    <section id="proces" class="py-32 bg-white overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal-left">
+                    <h2 class="text-xs font-bold text-brand-500 tracking-[0.4em] uppercase mb-4">Harmonogram</h2>
+                    <h3 class="text-5xl lg:text-6xl font-black mb-12 italic">3 kroki do wolności.</h3>
+                    
+                    <div class="space-y-12">
+                        <div class="flex gap-8 relative">
+                            <div class="flex flex-col items-center">
+                                <div class="w-12 h-12 bg-brand-900 text-white rounded-full flex items-center justify-center font-bold relative z-10">1</div>
+                                <div class="w-px h-full bg-brand-200 mt-2"></div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 uppercase tracking-tighter">Kontakt i Analiza</h4>
+                                <p class="text-gray-500 italic">Dzwonisz lub piszesz. W 15 minut analizujemy sytuację prawną nieruchomości.</p>
+                            </div>
     <!-- PROCES SECTION -->
     <section id="proces" class="py-32 bg-white overflow-hidden">
         <div class="max-w-[1400px] mx-auto px-6">
@@ -262,7 +336,22 @@
                                 <h4 class="text-xl font-bold mb-2 uppercase tracking-tighter">Oferta w 2h</h4>
                                 <p class="text-gray-500 italic">Otrzymujesz gwarantowaną cenę odkupu. Bez ukrytych kosztów i prowizji.</p>
                             </div>
+                        <div class="flex gap-8 relative">
+                            <div class="flex flex-col items-center">
+                                <div class="w-12 h-12 bg-brand-500 text-white rounded-full flex items-center justify-center font-bold relative z-10">2</div>
+                                <div class="w-px h-full bg-brand-200 mt-2"></div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 uppercase tracking-tighter">Oferta w 2h</h4>
+                                <p class="text-gray-500 italic">Otrzymujesz gwarantowaną cenę odkupu. Bez ukrytych kosztów i prowizji.</p>
+                            </div>
                         </div>
+                        <div class="flex gap-8">
+                            <div class="w-12 h-12 bg-brand-200 text-brand-900 rounded-full flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 uppercase tracking-tighter">Finał u Notariusza</h4>
+                                <p class="text-gray-500 italic">Podpisujemy akt, a Ty wychodzisz z kancelarii z gotówką lub potwierdzeniem przelewu Express.</p>
+                            </div>
                         <div class="flex gap-8">
                             <div class="w-12 h-12 bg-brand-200 text-brand-900 rounded-full flex items-center justify-center font-bold">3</div>
                             <div>
@@ -272,6 +361,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="relative reveal-right">
+                    <div class="bg-brand-900 rounded-[50px] p-12 text-white relative overflow-hidden">
+                        <i data-lucide="quote" class="w-20 h-20 text-brand-500/20 absolute top-10 right-10"></i>
+                        <p class="text-2xl italic leading-relaxed mb-8 relative z-10">"JeszczeZdołaszSprzedać kupili moją działkę z komornikiem w 3 dni. Gdyby nie oni, straciłabym wszystko na licytacji."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-500 rounded-full"></div>
+                            <div>
+                                <p class="font-bold">Marta Wiśniewska</p>
+                                <p class="text-xs text-brand-500 uppercase tracking-widest">Klientka z Warszawy</p>
+                            </div>
                 <div class="relative reveal-right">
                     <div class="bg-brand-900 rounded-[50px] p-12 text-white relative overflow-hidden">
                         <i data-lucide="quote" class="w-20 h-20 text-brand-500/20 absolute top-10 right-10"></i>
@@ -291,9 +390,17 @@
 
     <!-- FAQ SECTION -->
     <section id="faq" class="py-32 bg-brand-50">
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-32 bg-brand-50">
         <div class="max-w-3xl mx-auto px-6">
             <h2 class="text-4xl lg:text-5xl font-black text-center mb-16 italic">Pytania i odpowiedzi.</h2>
+            <h2 class="text-4xl lg:text-5xl font-black text-center mb-16 italic">Pytania i odpowiedzi.</h2>
             
+            <div class="space-y-4">
+                <div class="accordion-item bg-white rounded-3xl px-8 border border-brand-100 cursor-pointer group" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="text-lg font-bold group-hover:text-brand-500 transition">Czy skupujecie udziały w nieruchomościach?</h4>
+                        <i data-lucide="plus" class="chevron w-6 h-6 text-brand-200 transition-all"></i>
             <div class="space-y-4">
                 <div class="accordion-item bg-white rounded-3xl px-8 border border-brand-100 cursor-pointer group" onclick="toggleAccordion(this)">
                     <div class="flex justify-between items-center py-6">
@@ -302,8 +409,14 @@
                     </div>
                     <div class="accordion-content">
                         <p class="text-gray-500 leading-relaxed italic pb-8">Tak. Skupujemy udziały w mieszkaniach, domach i gruntach, nawet jeśli pozostali współwłaściciele nie wyrażają zgody na sprzedaż swojej części.</p>
+                        <p class="text-gray-500 leading-relaxed italic pb-8">Tak. Skupujemy udziały w mieszkaniach, domach i gruntach, nawet jeśli pozostali współwłaściciele nie wyrażają zgody na sprzedaż swojej części.</p>
                     </div>
                 </div>
+
+                <div class="accordion-item bg-white rounded-3xl px-8 border border-brand-100 cursor-pointer group" onclick="toggleAccordion(this)">
+                    <div class="flex justify-between items-center py-6">
+                        <h4 class="text-lg font-bold group-hover:text-brand-500 transition">Jakie dokumenty muszę przygotować?</h4>
+                        <i data-lucide="plus" class="chevron w-6 h-6 text-brand-200 transition-all"></i>
 
                 <div class="accordion-item bg-white rounded-3xl px-8 border border-brand-100 cursor-pointer group" onclick="toggleAccordion(this)">
                     <div class="flex justify-between items-center py-6">
@@ -312,14 +425,15 @@
                     </div>
                     <div class="accordion-content">
                         <p class="text-gray-500 leading-relaxed italic pb-8">Na początek wystarczy numer księgi wieczystej. Resztę dokumentów (zaświadczenia z US, ZUS czy od komornika) możemy pomóc Ci uzyskać bezpłatnie.</p>
+                        <p class="text-gray-500 leading-relaxed italic pb-8">Na początek wystarczy numer księgi wieczystej. Resztę dokumentów (zaświadczenia z US, ZUS czy od komornika) możemy pomóc Ci uzyskać bezpłatnie.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT FORM -->
-    <section id="kontakt" class="py-32 bg-white relative overflow-hidden">
+<!-- CONTACT FORM -->
+<section id="kontakt" class="py-32 bg-white relative overflow-hidden">
     <div class="max-w-[1200px] mx-auto px-6 flex flex-col lg:flex-row gap-16 lg:gap-20 items-center lg:items-start">
         
         <!-- TEXT CONTENT: Centered on mobile -->
@@ -348,6 +462,63 @@
                     <div class="text-center sm:text-left">
                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-0.5">Napisz</p>
                         <p class="text-lg font-black text-brand-900">kontakt@jzs.pl</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- FORM: Centered on mobile -->
+        <div class="w-full lg:w-2/3 bg-brand-50 p-6 sm:p-10 lg:p-16 rounded-[40px] lg:rounded-[50px] shadow-sm border border-brand-100 reveal-right">
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" onsubmit="event.preventDefault(); alert('Dziękujemy! Skontaktujemy się w ciągu 15 minut.');">
+                
+                <!-- Dane osobowe -->
+                <div class="space-y-2 text-left">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Imię i Nazwisko</label>
+                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="Jan Kowalski">
+                </div>
+                
+                <div class="space-y-2 text-left">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Numer Telefonu</label>
+                    <input type="tel" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm" placeholder="+48 000 000 000">
+                </div>
+                
+                <div class="md:col-span-2 space-y-2 text-left">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Adres e-mail</label>
+                    <input type="email" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="jan@example.com">
+                </div>
+
+                <!-- Szczegóły Nieruchomości -->
+                <div class="md:col-span-2 space-y-2 text-left pt-4 border-t border-brand-200/50">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-900 ml-2">Adres nieruchomości (Ulica, Miasto)</label>
+                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. Marszałkowska 10/12, Warszawa">
+                </div>
+
+                <div class="space-y-2 text-left">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Metraż (m²)</label>
+                    <input type="number" step="0.1" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 54.5">
+                </div>
+
+                <div class="space-y-2 text-left">
+                    <label class="text-[10px] font-black tracking-widest uppercase text-brand-500 ml-2">Piętro</label>
+                    <input type="text" required class="w-full bg-white p-5 rounded-2xl border-none outline-none focus:ring-2 focus:ring-brand-500 transition shadow-sm placeholder-gray-300" placeholder="np. 3 (z 4) lub parter">
+                </div>
+
+                <!-- Atrybuty / Dodatki (Grid 3-kolumnowy na desktopie) -->
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    <!-- Balkon -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3 border border-brand-100/50">
+                        <input type="checkbox" id="balkon" name="balkon" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-gray-300 accent-brand-500">
+                        <label for="balkon" class="text-xs font-bold text-brand-900 uppercase tracking-wider cursor-pointer select-none">Balkon / Taras</label>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-0.5">Napisz</p>
+                        <p class="text-lg font-black text-brand-900">kontakt@jzs.pl</p>
+
+                    <!-- Garaż -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center gap-3 border border-brand-100/50">
+                        <input type="checkbox" id="garaz" name="garaz" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-gray-300 accent-brand-500">
+                        <label for="garaz" class="text-xs font-bold text-brand-900 uppercase tracking-wider cursor-pointer select-none">Garaż / Miejsce</label>
                     </div>
                 </div>
                 
@@ -386,14 +557,29 @@
     <!-- CHAT BUBBLE -->
     <div class="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-[200] flex flex-col items-end">
         <div id="chat-bubble" class="hidden glass w-80 mb-6 rounded-3xl overflow-hidden shadow-2xl scale-90 opacity-0 transition-all duration-500 origin-bottom-right">
+    <!-- FOOTER -->
+    <footer class="py-12 text-center text-gray-400 text-xs tracking-widest border-t border-brand-100 bg-white">
+        <p>&copy; 2026  JeszczeZdołaszSprzedać. WSZELKIE PRAWA ZASTRZEŻONE.</p>
+    </footer>
+
+    <!-- CHAT BUBBLE -->
+    <div class="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-[200] flex flex-col items-end">
+        <div id="chat-bubble" class="hidden glass w-80 mb-6 rounded-3xl overflow-hidden shadow-2xl scale-90 opacity-0 transition-all duration-500 origin-bottom-right">
             <div class="bg-brand-900 p-6 text-white">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
                     <span class="text-[10px] font-bold tracking-widest uppercase">Ekspert Online</span>
+                    <span class="text-[10px] font-bold tracking-widest uppercase">Ekspert Online</span>
                 </div>
+                <p class="text-xl font-bold mt-2 italic">Jak możemy pomóc?</p>
                 <p class="text-xl font-bold mt-2 italic">Jak możemy pomóc?</p>
             </div>
             <div class="p-6 space-y-4">
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Dzień dobry! Przeprowadzamy bezpłatną analizę zadłużenia. Opisz krótko swój problem."</p>
+                <a href="https://wa.me/48730000000" class="flex items-center justify-center gap-3 bg-green-500 text-white font-bold py-4 rounded-xl hover:bg-green-600 transition shadow-lg shadow-green-500/20">
+                    <i data-lucide="message-circle"></i>
+                    WhatsApp Express
+                </a>
                 <p class="text-sm text-gray-500 leading-relaxed italic">"Dzień dobry! Przeprowadzamy bezpłatną analizę zadłużenia. Opisz krótko swój problem."</p>
                 <a href="https://wa.me/48730000000" class="flex items-center justify-center gap-3 bg-green-500 text-white font-bold py-4 rounded-xl hover:bg-green-600 transition shadow-lg shadow-green-500/20">
                     <i data-lucide="message-circle"></i>
@@ -405,30 +591,65 @@
         <button onclick="toggleChat()" class="w-16 h-16 lg:w-20 lg:h-20 bg-brand-500 rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-all border-4 lg:border-8 border-white">
             <i data-lucide="message-square" id="c-icon" class="text-white w-6 h-6 lg:w-8 lg:h-8"></i>
             <i data-lucide="x" id="c-close" class="text-white w-6 h-6 lg:w-8 lg:h-8 hidden"></i>
+        <button onclick="toggleChat()" class="w-16 h-16 lg:w-20 lg:h-20 bg-brand-500 rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 transition-all border-4 lg:border-8 border-white">
+            <i data-lucide="message-square" id="c-icon" class="text-white w-6 h-6 lg:w-8 lg:h-8"></i>
+            <i data-lucide="x" id="c-close" class="text-white w-6 h-6 lg:w-8 lg:h-8 hidden"></i>
         </button>
     </div>
 
     <script>
         // Initialize Icons
+        // Initialize Icons
         lucide.createIcons();
 
+        // Animations
         // Animations
         ScrollReveal().reveal('.reveal', { delay: 200, distance: '50px', origin: 'bottom', duration: 1000 });
         ScrollReveal().reveal('.reveal-left', { delay: 300, distance: '80px', origin: 'left', duration: 1200 });
         ScrollReveal().reveal('.reveal-right', { delay: 300, distance: '80px', origin: 'right', duration: 1200 });
 
         // Navbar Scroll Effect
+        // Navbar Scroll Effect
         window.onscroll = function() {
             const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-3');
             if (window.scrollY > 50) {
                 nav.classList.add('py-3');
                 nav.classList.remove('py-6');
             } else {
                 nav.classList.add('py-6');
                 nav.classList.remove('py-3');
+                nav.classList.remove('py-3');
             }
         };
 
+       function toggleMenu() {
+            const body = document.body;
+            const openIco = document.getElementById('m-open');
+            const closeIco = document.getElementById('m-close');
+            
+            body.classList.toggle('menu-open');
+            
+            if (body.classList.contains('menu-open')) {
+                openIco.classList.add('hidden');
+                closeIco.classList.remove('hidden');
+            } else {
+                openIco.classList.remove('hidden');
+                closeIco.classList.add('hidden');
+            }
+        }
+
+        // Zamknij menu po kliknięciu w link (na kotwice)
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.body.classList.remove('menu-open');
+                document.getElementById('m-open').classList.remove('hidden');
+                document.getElementById('m-close').classList.add('hidden');
+            });
+        });
+
+        // Accordion Logic
        function toggleMenu() {
             const body = document.body;
             const openIco = document.getElementById('m-open');
@@ -462,6 +683,7 @@
         }
 
         // Chat Bubble Logic
+        // Chat Bubble Logic
         function toggleChat() {
             const b = document.getElementById('chat-bubble');
             const open = document.getElementById('c-icon');
@@ -477,6 +699,7 @@
                 open.classList.remove('hidden'); close.classList.add('hidden');
             }
         }
+    }
     </script>
 </body>
 </html>
